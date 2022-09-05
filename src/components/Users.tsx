@@ -1,11 +1,13 @@
 import React from 'react';
 import { Loader } from './Loader';
+import { User } from './User';
 
 type TItem = {
   avatar: string;
   first_name: string;
   last_name: string;
   email: string;
+  id: number;
 };
 
 type TUsers = {
@@ -13,6 +15,8 @@ type TUsers = {
   isLoading: boolean;
   searchValue: string;
   onChangeSearchValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  invites: number[];
+  onClickInvite: (id: number) => void;
 };
 
 const Users: React.FC<TUsers> = ({
@@ -20,6 +24,8 @@ const Users: React.FC<TUsers> = ({
   isLoading,
   searchValue,
   onChangeSearchValue,
+  invites,
+  onClickInvite,
 }) => {
   return (
     <>
@@ -54,25 +60,12 @@ const Users: React.FC<TUsers> = ({
               );
             })
             .map((item) => (
-              <li>
-                <div>
-                  <img className="avatar" src={item.avatar} alt="User" />
-                  <div>
-                    <h3>
-                      {item.first_name} {item.last_name}
-                    </h3>
-                    <p>
-                      <svg
-                        viewBox="0 0 96 96"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M48,0a48,48,0,0,0,0,96,6,6,0,0,0,0-12A36,36,0,1,1,84,48V66a6,6,0,0,1-12,0V48A24,24,0,1,0,48,72a23.7365,23.7365,0,0,0,12.2549-3.4783A17.9586,17.9586,0,0,0,96,66V48A48.0474,48.0474,0,0,0,48,0Zm0,60A12,12,0,1,1,60,48,12.0081,12.0081,0,0,1,48,60Z" />
-                      </svg>
-                      {item.email}
-                    </p>
-                  </div>
-                </div>
-              </li>
+              <User
+                key={item.id}
+                {...item}
+                isInvited={invites.includes(item.id)}
+                onClickInvite={onClickInvite}
+              />
             ))}
         </ul>
       )}

@@ -5,6 +5,7 @@ function App() {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');
+  const [invites, setInvites] = useState([]);
 
   useEffect(() => {
     fetch(`https://reqres.in/api/users`)
@@ -17,9 +18,19 @@ function App() {
       .finally(() => setIsLoading(false));
   }, []);
 
-const onChangeSearchValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setSearchValue(event.target.value);
-};
+  const onChangeSearchValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+  };
+
+  const onClickInvite = (id: number) => {
+    // @ts-ignore
+    if (invites.includes(id)) {
+      setInvites((prev) => prev.filter((_id) => _id !== id));
+    } else {
+      // @ts-ignore
+      setInvites((prev) => [...prev, id]);
+    }
+  };
 
   return (
     <div className="App">
@@ -28,6 +39,8 @@ const onChangeSearchValue = (event: React.ChangeEvent<HTMLInputElement>) => {
         isLoading={isLoading}
         searchValue={searchValue}
         onChangeSearchValue={onChangeSearchValue}
+        invites={invites}
+        onClickInvite={onClickInvite}
       />
     </div>
   );
