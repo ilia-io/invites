@@ -140,3 +140,12 @@ body {
     opacity: 0.3;
   }
 }
+
+.loader-list {
+  height: calc(100% - 130px);
+  margin-top: 30px;
+
+  svg {
+    margin-bottom: 15px;
+  }
+}
