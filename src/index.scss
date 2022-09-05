@@ -118,3 +118,25 @@ body {
     box-shadow: none;
   }
 }
+
+.search {
+  position: relative;
+
+  input {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 15px;
+    border-radius: 15px;
+    width: 100%;
+    font-size: 16px;
+    padding-left: 50px;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 17px;
+    left: 20px;
+    opacity: 0.3;
+  }
+}
