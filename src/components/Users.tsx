@@ -19,6 +19,8 @@ type TUsers = {
   onClickInvite: (id: number) => void;
   setSentSuccessfully: (b: boolean) => void;
   count: number;
+  onClickPage: (n: number) => void;
+  page: number;
 };
 
 const Users: React.FC<TUsers> = ({
@@ -30,6 +32,8 @@ const Users: React.FC<TUsers> = ({
   onClickInvite,
   setSentSuccessfully,
   count,
+  onClickPage,
+  page,
 }) => {
   return (
     <>
@@ -42,6 +46,26 @@ const Users: React.FC<TUsers> = ({
           onChange={onChangeSearchValue}
           type="text"
           placeholder="Найти пользователя..."
+        />
+      </div>
+      <div className="arrows">
+        <img
+          onClick={() => onClickPage(1)}
+          width={30}
+          src="/assets/back.png"
+          alt="back arrow icon"
+          style={
+            page === 1 ? { opacity: 0.2, transition: 'transform 999s' } : {}
+          }
+        />
+        <img
+          onClick={() => onClickPage(2)}
+          width={30}
+          src="/assets/next.png"
+          alt="next arrow icon"
+          style={
+            page === 2 ? { opacity: 0.2, transition: 'transform 999s' } : {}
+          }
         />
       </div>
       {isLoading ? (
@@ -83,7 +107,7 @@ const Users: React.FC<TUsers> = ({
       >
         {count > 0
           ? 'Отправить приглашение'
-          : 'Добавьте кого-то чтобы отправить'}
+          : 'Добавьте кого-то, чтобы отправить'}
       </button>
     </>
   );

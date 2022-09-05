@@ -9,9 +9,10 @@ function App() {
   const [invites, setInvites] = useState([]);
   const [sentSuccessfully, setSentSuccessfully] = useState(false);
   const count = invites.length;
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetch(`https://reqres.in/api/users`)
+    fetch(`https://reqres.in/api/users?page=${page}`)
       .then((res) => res.json())
       .then((json) => setUsers(json.data))
       .catch((error) => {
@@ -19,7 +20,7 @@ function App() {
         alert('Ошибка при получении пользователей');
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [page]);
 
   const onChangeSearchValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -35,6 +36,11 @@ function App() {
     }
   };
 
+ const onClickPage = (num: number) => {
+   setPage(num);
+ };
+
+
   return (
     <div className="App">
       {sentSuccessfully ? (
@@ -49,6 +55,8 @@ function App() {
           onClickInvite={onClickInvite}
           setSentSuccessfully={setSentSuccessfully}
           count={count}
+          onClickPage={onClickPage}
+          page={page}
         />
       )}
     </div>

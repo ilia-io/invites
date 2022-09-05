@@ -128,6 +128,10 @@ body {
     width: 100%;
     font-size: 16px;
     padding-left: 50px;
+
+    &:focus {
+      border: 1px solid rgba(0, 0, 0, 0.6);
+    }
   }
 
   svg {
@@ -185,5 +189,23 @@ body {
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+.arrows {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+}
+
+.arrows > * {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:nth-child(1):hover {
+    transform: translateX(-5px);
+  }
+  &:nth-child(2):hover {
+    transform: translateX(5px);
   }
 }
