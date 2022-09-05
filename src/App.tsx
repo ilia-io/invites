@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Success } from './components/Success';
 import Users from './components/Users';
 
 function App() {
@@ -6,6 +7,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');
   const [invites, setInvites] = useState([]);
+  const [sentSuccessfully, setSentSuccessfully] = useState(false);
+  const count = invites.length;
 
   useEffect(() => {
     fetch(`https://reqres.in/api/users`)
@@ -34,14 +37,20 @@ function App() {
 
   return (
     <div className="App">
-      <Users
-        items={users}
-        isLoading={isLoading}
-        searchValue={searchValue}
-        onChangeSearchValue={onChangeSearchValue}
-        invites={invites}
-        onClickInvite={onClickInvite}
-      />
+      {sentSuccessfully ? (
+        <Success setSentSuccessfully={setSentSuccessfully} count={count} />
+      ) : (
+        <Users
+          items={users}
+          isLoading={isLoading}
+          searchValue={searchValue}
+          onChangeSearchValue={onChangeSearchValue}
+          invites={invites}
+          onClickInvite={onClickInvite}
+          setSentSuccessfully={setSentSuccessfully}
+          count={count}
+        />
+      )}
     </div>
   );
 }

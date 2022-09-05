@@ -17,6 +17,8 @@ type TUsers = {
   onChangeSearchValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
   invites: number[];
   onClickInvite: (id: number) => void;
+  setSentSuccessfully: (b: boolean) => void;
+  count: number;
 };
 
 const Users: React.FC<TUsers> = ({
@@ -26,6 +28,8 @@ const Users: React.FC<TUsers> = ({
   onChangeSearchValue,
   invites,
   onClickInvite,
+  setSentSuccessfully,
+  count,
 }) => {
   return (
     <>
@@ -69,7 +73,18 @@ const Users: React.FC<TUsers> = ({
             ))}
         </ul>
       )}
-      <button className="send-invite-btn">Отправить приглашение</button>
+      <button
+        onClick={() => {
+          if (count > 0) {
+            return setSentSuccessfully(true);
+          }
+        }}
+        className="send-invite-btn"
+      >
+        {count > 0
+          ? 'Отправить приглашение'
+          : 'Добавьте кого-то чтобы отправить'}
+      </button>
     </>
   );
 };
